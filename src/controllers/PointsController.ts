@@ -14,8 +14,8 @@ class PointsController {
     const points = await knex("point")
       .join("point_items", "point.id", "=", "point_items.point_id")
       .whereIn("point_items.item_id", parsedItems)
-      .where("city", String(city))
-      .where("uf", String(uf))
+      .where("city", "like", `%${String(city)}%`)
+      .where("uf", "like", `%${String(uf)}%`)
       .distinct()
       .select("point.*");
 
