@@ -12,9 +12,16 @@ const upload = multer(multerConfig);
 const pointController = new PointsController();
 const itemsController = new ItemsController();
 
+import ValidationPoint from "./validations/validationPoint";
+
 routes.get("/items", itemsController.index);
 
-routes.post("/points", upload.single("image"), pointController.create);
+routes.post(
+  "/points",
+  upload.single("image"),
+  ValidationPoint,
+  pointController.create
+);
 routes.get("/points", pointController.index);
 routes.get("/points/:id", pointController.show);
 export default routes;
